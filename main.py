@@ -41,7 +41,7 @@ if __name__ == "__main__":
 
     while True:
         print("\nEnter your move as 'row col num' (e.g., 3 4 7)")
-        print("Commands: 'hint' for a suggestion, 'solve' to auto-solve, 'quit' to exit.")
+        print("Commands: 'hint' for a suggestion, 'undo' to undo last move, 'solve' to auto-solve, 'quit' to exit.")
         command = input("> ").strip().lower()
 
         if command == "quit":
@@ -66,6 +66,14 @@ if __name__ == "__main__":
                 print("\n✅ No hints available. Puzzle might be complete.")
             continue
 
+        elif command == "undo":
+            if board.undo_move():
+                print("\nLast move undone.")
+            else:
+                print("\n❌ No moves to undo.")
+            board.print_board()
+            continue
+
         else:
             try:
                 row, col, num = map(int, command.split())
@@ -77,9 +85,8 @@ if __name__ == "__main__":
                 if board.grid[row][col] != 0:
                     print("\n❌ Cell already filled. Try another.")
                 elif board.is_valid(row, col, num):
-                    board.grid[row][col] = num
-                    print()  # Space before board
-
+                    board.make_move(row, col, num)
+                    print()
                     board.print_board()
 
                     # Mistake checker
