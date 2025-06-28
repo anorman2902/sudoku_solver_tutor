@@ -2,7 +2,7 @@ class SudokuBoard:
     def __init__(self, grid):
         self.grid = grid
 
-    def is_valid_move(self, row, col, num):
+    def is_valid(self, row, col, num):
         # Check if num is in the same row
         if any(self.grid[row][i] == num for i in range(9)):
             return False

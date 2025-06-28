@@ -11,7 +11,7 @@ def suggest_move_with_reason(board):
             if board.grid[row][col] == 0:
                 possible = []
                 for num in range(1, 10):
-                    if board.is_valid_move(row, col, num):
+                    if board.is_valid(row, col, num):
                         possible.append(num)
                 if possible:
                     candidates.append((row, col, possible))
