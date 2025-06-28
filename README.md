@@ -1,4 +1,4 @@
-# 🧠 Sudoku Tutor Solver (CPSC 481 Project)
+# Sudoku Tutor Solver (CPSC 481 Project)
 
 This is an AI-powered Sudoku tutor and solver built as a final project for CPSC 481: Artificial Intelligence.  
 It helps users learn how to solve Sudoku puzzles through interactive feedback, smart hints, mistake checking, and visual polish — all in the terminal.
@@ -13,7 +13,7 @@ It helps users learn how to solve Sudoku puzzles through interactive feedback, s
   - Row/column labels
   - Color-coded moves (green for user input)
   - Symbols (`▢` for empty cells)
-- 📁 Supports **multiple puzzles** from the `/puzzles` folder
+- Supports **multiple puzzles** from the `/puzzles` folder
 
 ## 🔧 Requirements
 
@@ -75,7 +75,7 @@ python main.py
 - **Mistake Checker**: After every valid user move, a clone of the board is solved silently. If unsolvable, the user is warned.
 - **Undo Stack**: Stores board states for safe rollback.
 
-## 📌 Example Puzzle File Format
+## Example Puzzle File Format
 
 Each puzzle is stored as a `.txt` file with 9 lines of 9 digits (0 = empty cell):
 
@@ -100,7 +100,7 @@ Custom puzzle files may be added to the `/puzzles` folder
 - AI explanation generator (natural language)
 - ML-trained Sudoku strategy engine
 
-## 👨‍🏫 Developed For
+## Developed For
 
 **CPSC 481 - Artificial Intelligence**  
 California State University, Fullerton  
