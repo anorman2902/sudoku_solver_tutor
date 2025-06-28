@@ -14,7 +14,7 @@ def solve(board):
 
     row, col = empty
     for num in range(1, 10):
-        if board.is_valid(row, col, num):
+        if board.is_valid_move(row, col, num):
             board.grid[row][col] = num
 
             if solve(board):

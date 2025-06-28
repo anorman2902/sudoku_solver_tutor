@@ -2,17 +2,16 @@ class SudokuBoard:
     def __init__(self, grid):
         self.grid = grid
 
-    def is_valid(self, row, col, num):
-        # Check row
-        if num in self.grid[row]:
+    def is_valid_move(self, row, col, num):
+        # Check if num is in the same row
+        if any(self.grid[row][i] == num for i in range(9)):
             return False
 
-        # Check column
-        for i in range(9):
-            if self.grid[i][col] == num:
-                return False
+        # Check if num is in the same column
+        if any(self.grid[i][col] == num for i in range(9)):
+            return False
 
-        # Check 3x3 box
+        # Check if num is in the same 3x3 box
         start_row, start_col = 3 * (row // 3), 3 * (col // 3)
         for i in range(3):
             for j in range(3):

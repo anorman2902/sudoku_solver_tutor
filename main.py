@@ -1,6 +1,6 @@
 from solver.board import SudokuBoard
 from solver.solver import solve
-from solver.tutor import suggest_move
+from solver.constraint_solver import suggest_move_with_reason
 
 def load_board_from_file(filepath):
     grid = []
@@ -18,10 +18,11 @@ if __name__ == "__main__":
     print("Original Puzzle:")
     board.print_board()
 
-    hint = suggest_move(board)
+    hint = suggest_move_with_reason(board)
     if hint:
-        row, col, num = hint
+        row, col, num, reason = hint
         print(f"\nTutor Hint: Try placing {num} at row {row + 1}, column {col + 1}")
+        print(f"Reason: {reason}")
     else:
         print("\nNo hints available. Puzzle might be complete.")
 
