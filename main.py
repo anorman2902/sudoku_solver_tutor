@@ -2,6 +2,9 @@ from solver.board import SudokuBoard
 from solver.solver import solve
 from solver.constraint_solver import suggest_move_with_reason
 
+import os
+from copy import deepcopy
+
 def load_board_from_file(filepath):
     grid = []
     with open(filepath, 'r') as f:
@@ -10,61 +13,81 @@ def load_board_from_file(filepath):
             grid.append(row)
     return grid
 
+def choose_puzzle():
+    puzzle_dir = "puzzles"
+    files = [f for f in os.listdir(puzzle_dir) if f.endswith(".txt")]
+
+    print("Available puzzles:")
+    for i, filename in enumerate(files, 1):
+        print(f"{i}. {filename}")
+
+    while True:
+        try:
+            choice = int(input("\nSelect a puzzle number: "))
+            if 1 <= choice <= len(files):
+                return os.path.join(puzzle_dir, files[choice - 1])
+            else:
+                print("❌ Invalid choice.")
+        except ValueError:
+            print("Please enter a number.")
+
 if __name__ == "__main__":
-    path = "puzzles/easy1.txt"
+    path = choose_puzzle()
     grid = load_board_from_file(path)
     board = SudokuBoard(grid)
 
-    print("Original Puzzle:")
+    print("\nOriginal Puzzle:")
     board.print_board()
 
     while True:
-        hint = suggest_move_with_reason(board)
-        if hint:
-            row, col, num, reason = hint
-            print(f"\nTutor Hint: Try placing {num} at row {row + 1}, column {col + 1}")
-            print(f"Reason: {reason}")
-        else:
-            print("\nNo hints available. Puzzle might be complete.")
+        print("\nEnter your move as 'row col num' (e.g., 3 4 7)")
+        print("Commands: 'hint' for a suggestion, 'solve' to auto-solve, 'quit' to exit.")
+        command = input("> ").strip().lower()
 
-        print("\nEnter your move as 'row col num' (1-based indexing)")
-        print("Or type 'hint' to repeat hint, 'solve' to auto-solve, or 'quit' to exit.")
-
-        user_input = input("> ").strip().lower()
-
-        if user_input == "quit":
+        if command == "quit":
             print("Exiting the program.")
             break
-        elif user_input == "solve":
+
+        elif command == "solve":
             if solve(board):
                 print("\nSolved Puzzle:")
                 board.print_board()
             else:
-                print("\nNo solution found.")
+                print("\n❌ No solution found.")
             break
-        elif user_input == "hint":
+
+        elif command == "hint":
+            hint = suggest_move_with_reason(board)
+            if hint:
+                row, col, num, reason = hint
+                print(f"\nTutor Hint: Try placing {num} at row {row + 1}, column {col + 1}")
+                print(f"Reason: {reason}")
+            else:
+                print("\n✅ No hints available. Puzzle might be complete.")
             continue
 
-        try:
-            parts = user_input.strip().split()
+        else:
+            try:
+                row, col, num = map(int, command.split())
+                row -= 1
+                col -= 1
+                if not (0 <= row < 9 and 0 <= col < 9 and 1 <= num <= 9):
+                    raise ValueError
 
-            if len(parts) == 3 and all(part.isdigit() for part in parts):
-                r, c, n = map(int, parts)
-                if not (1 <= r <= 9 and 1 <= c <= 9 and 1 <= n <= 9):
-                    print("❌ Numbers must be between 1 and 9.")
-                    continue
+                if board.grid[row][col] != 0:
+                    print("\n❌ Cell already filled. Try another.")
+                elif board.is_valid(row, col, num):
+                    board.grid[row][col] = num
+                    print()  # Space before board
 
-                r -= 1
-                c -= 1
-
-                if board.grid[r][c] != 0:
-                    print("❌ That cell is already filled. Try a different one.")
-                elif not board.is_valid(r, c, n):
-                    print("❌ Invalid move. That number breaks Sudoku rules.")
-                else:
-                    board.grid[r][c] = n
                     board.print_board()
-            else:
-                print("Invalid input. Please enter as: row col num (e.g., 3 4 7)")
-        except Exception as e:
-            print(f"Unexpected error: {e}")
+
+                    # Mistake checker
+                    temp_board = SudokuBoard(deepcopy(board.grid))
+                    if not solve(temp_board):
+                        print(f"\n⚠️ Warning: This move makes the puzzle unsolvable.")
+                else:
+                    print(f"\n❌ Invalid move: {num} conflicts with Sudoku rules at ({row + 1}, {col + 1})")
+
+            except ValueError:
+                print("\n❌ Invalid input. Please enter in format: row col num (e.g., 3 4 7)")

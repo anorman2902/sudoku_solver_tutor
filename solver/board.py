@@ -24,11 +24,18 @@ class SudokuBoard:
         return all(all(cell != 0 for cell in row) for row in self.grid)
 
     def print_board(self):
+        # Column labels
+        print("    1 2 3   4 5 6   7 8 9")
+        print("  +-------+-------+-------+")
+
         for i, row in enumerate(self.grid):
-            if i % 3 == 0 and i != 0:
-                print("-" * 21)
+            row_str = f"{i + 1} |"
             for j, cell in enumerate(row):
-                if j % 3 == 0 and j != 0:
-                    print("|", end=" ")
-                print(cell if cell != 0 else ".", end=" ")
-            print()
+                val = str(cell) if cell != 0 else "."
+                row_str += f" {val}"
+                if (j + 1) % 3 == 0:
+                    row_str += " |"
+            print(row_str)
+            if (i + 1) % 3 == 0:
+                print("  +-------+-------+-------+")
+
