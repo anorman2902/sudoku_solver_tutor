@@ -57,11 +57,11 @@ if __name__ == "__main__":
             break
 
         elif command == "hint":
-            hint = suggest_move_with_reason(board)
-            if hint:
-                row, col, num, reason = hint
-                print(f"\nTutor Hint: Try placing {num} at row {row + 1}, column {col + 1}")
-                print(f"Reason: {reason}")
+            result = suggest_move_with_reason(board)
+            if result:
+                row, col, num, hint_text, reason_text = result
+                print(f"\nTutor Hint: {hint_text}")
+                print(f"Reason: {reason_text}")
             else:
                 print("\n✅ No hints available. Puzzle might be complete.")
             continue
