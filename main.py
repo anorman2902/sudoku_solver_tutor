@@ -1,5 +1,6 @@
 from solver.board import SudokuBoard
 from solver.solver import solve
+from solver.tutor import suggest_move
 
 def load_board_from_file(filepath):
     grid = []
@@ -16,6 +17,13 @@ if __name__ == "__main__":
 
     print("Original Puzzle:")
     board.print_board()
+
+    hint = suggest_move(board)
+    if hint:
+        row, col, num = hint
+        print(f"\nTutor Hint: Try placing {num} at row {row + 1}, column {col + 1}")
+    else:
+        print("\nNo hints available. Puzzle might be complete.")
 
     if solve(board):
         print("\nSolved Puzzle:")
