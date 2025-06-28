@@ -92,7 +92,7 @@ if __name__ == "__main__":
                     # Mistake checker
                     temp_board = SudokuBoard(deepcopy(board.grid))
                     if not solve(temp_board):
-                        print(f"\n⚠️ Warning: This move makes the puzzle unsolvable.")
+                        print("\n⚠️ Warning: This move makes the puzzle unsolvable. Try undoing and considering a different number or position.")
                 else:
                     print(f"\n❌ Invalid move: {num} conflicts with Sudoku rules at ({row + 1}, {col + 1})")
 
