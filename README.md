@@ -3,13 +3,13 @@
 This is an AI-powered Sudoku tutor and solver built as a final project for CPSC 481: Artificial Intelligence.  
 It helps users learn how to solve Sudoku puzzles through interactive feedback, smart hints, mistake checking, and visual polish — all in the terminal.
 
-## 📌 Features
+## Features
 
-- ✅ Constraint-based Sudoku solver (uses backtracking + inference)
-- 🧠 Smart **hints** with reasoning
-- ❌ **Mistake checker** warns if a move leads to an unsolvable board
-- ↩️ **Undo** support to backtrack from bad moves
-- 🎨 Visual polish using:
+- Constraint-based Sudoku solver (uses backtracking + inference)
+- Smart **hints** with reasoning
+- **Mistake checker** warns if a move leads to an unsolvable board
+- **Undo** support to backtrack from bad moves
+- Visual polish using:
   - Row/column labels
   - Color-coded moves (green for user input)
   - Symbols (`▢` for empty cells)
@@ -20,7 +20,7 @@ It helps users learn how to solve Sudoku puzzles through interactive feedback, s
 - Python 3.7 or higher  
 - No external dependencies required (pure Python)
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 SUDOKU_SOLVER_TUTOR/
@@ -42,7 +42,7 @@ SUDOKU_SOLVER_TUTOR/
 └── README.md                 # Project documentation (this file)
 ```
 
-## 🚀 How to Run
+## How to Run
 
 ### 1. Clone the repository
 ```bash
@@ -68,7 +68,7 @@ python main.py
   - `undo` — undo the last move
   - `quit` — exit the program
 
-## 🧠 AI Logic Explained
+## AI Logic Explained
 
 - **Constraint Solver**: Uses naked singles (cells with only 1 possible value) and forward checking to suggest logical moves.
 - **Backtracking Solver**: Recursive Sudoku solver used to check if a board is solvable after user input.
