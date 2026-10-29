@@ -1,6 +1,6 @@
 # Sudoku Tutor Solver (CPSC 481 Project)
 
-This is an AI-powered Sudoku tutor and solver built as a final project for CPSC 481: Artificial Intelligence.  
+This is a Sudoku tutor and solver built as a final project for CPSC 481: Artificial Intelligence.  
 It helps users learn how to solve Sudoku puzzles through interactive feedback, smart hints, mistake checking, and visual polish — all in the terminal.
 
 ## Features
